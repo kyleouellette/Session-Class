@@ -8,7 +8,7 @@ class Sessions{
 	public function __construct($session_expire_name = 'session_expire'){
 		session_start();
 		$this->session_expire_name = $session_expire_name;
-		$_SESSION['initial_start'] ? null:$_SESSION['initial_start'] = mktime();
+		$_SESSION['initial_start'] ? null : $_SESSION['initial_start'] = mktime();
 		$this->sarr = $_SESSION;
 		return;
 	}
@@ -37,16 +37,18 @@ class Sessions{
 	}
 	
 	public function unsetData($key){
-		$_SESSION[$key] = false;
+		unset($_SESSION[$key]);
 		$this->sarr = $_SESSION;
 		return true;
 	}
 	
 	public function doShow(){
 		echo "<pre>";
-		echo "initial start..." . date('d M Y g:i', $this->sarr['initial_start']);
+		echo "initial start..." . date('d M Y g:i.s', $this->sarr['initial_start']);
 		echo "\n\n";
 		print_r($_SESSION);
+		echo "\n\n";
+		echo "Expires at..." . date('d M y g:i.s', $this->sarr[$this->session_expire_name]);
 		echo "</pre>";
 	}
 }
